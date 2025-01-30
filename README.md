@@ -1,7 +1,10 @@
-# Tauri + React + Typescript
+# LMJE
 
-This template should help get you started developing with Tauri, React and Typescript in Vite.
+Lethe Mod Json Editor
+This is a heavily work-in-progress project, with me as a solo developer ( all contributions are welcome )
+My goal for this project is to have a completely working GUI for editing Lethe's files
 
-## Recommended IDE Setup
+## Resources
 
-- [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+- [Lethe's Repo](https://github.com/LEAGUE-OF-NINE/Lethe)
+- [Lethe's Website](https://lethelc.site/)

@@ -2,7 +2,7 @@ mod file_handler;
 mod skill_data;
 
 use file_handler::FileHandler;
-use skill_data::SkillData;
+use skill_data::Skill;
 use std::collections::HashMap;
 use std::{ffi::OsString, fs, path::PathBuf, sync::Mutex};
 use tauri::Runtime;
@@ -42,19 +42,11 @@ async fn refresh_data<R: Runtime>(_app: tauri::AppHandle<R>) -> Result<String, S
             }
         }
 
-        let skill_dat: Result<HashMap<String, Vec<SkillData>>, serde_json::Error> =
-            serde_json::from_str(&skill0);
-        println!("{:#?}", skill_dat.iter().clone());
-        let mut skills_map: HashMap<String, Vec<SkillData>> = HashMap::new();
-        let mut skill: &SkillData;
-        let mut skill_list_temp: &Vec<SkillData>;
-        if let Err(e) = skill_dat {
-            return Err(e.to_string());
-        } else {
-            skills_map = skill_dat.unwrap();
-        }
+        let skill_dat: HashMap<String, Vec<Skill>> =
+            serde_json::from_str(&skill0).unwrap();
+        let skill: &Skill;
 
-        if let Some(list) = skills_map.get("list") {
+        if let Some(list) = skill_dat.get("list") {
             let first_skill = &list[0];
             skill = first_skill;
         } else {

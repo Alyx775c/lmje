@@ -11,18 +11,16 @@
 //     let model: Skill = serde_json::from_str(&json).unwrap();
 // }
 
-use core::fmt;
-
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Skill {
-    pub id: i64,
-    pub skill_type: String,
-    pub skill_tier: i64,
+    pub id: Option<i64>,
+    pub skill_type: Option<String>,
+    pub skill_tier: Option<i64>,
     #[serde(rename = "requireIDList")]
-    pub require_id_list: Vec<Option<serde_json::Value>>,
+    pub require_id_list: Option<Vec<Option<String>>>,
     pub skill_data: Vec<SkillData>,
 }
 
@@ -47,68 +45,28 @@ pub struct SkillData {
     pub coin_list: Option<Vec<CoinList>>,
 }
 
-impl fmt::Display for SkillData {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "SkillData {{\n\
-            gaksung_level: {},\n\
-            attribute_type: {:?},\n\
-            atk_type: {:?},\n\
-            def_type: {:?},\n\
-            skill_target_type: {:?},\n\
-            target_num: {:?},\n\
-            mp_usage: {:?},\n\
-            skill_level_correction: {:?},\n\
-            default_value: {:?},\n\
-            can_team_kill: {:?},\n\
-            can_duel: {:?},\n\
-            can_change_target: {:?},\n\
-            skill_motion: {:?},\n\
-            view_type: {:?},\n\
-            parrying_close_type: {:?},\n\
-            }}",
-            self.gaksung_level,
-            self.attribute_type,
-            self.atk_type,
-            self.def_type,
-            self.skill_target_type,
-            self.target_num,
-            self.mp_usage,
-            self.skill_level_correction,
-            self.default_value,
-            self.can_team_kill,
-            self.can_duel,
-            self.can_change_target,
-            self.skill_motion,
-            self.view_type,
-            self.parrying_close_type
-        )
-    }
-}
-
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct CoinList {
     pub operator_type: String,
     pub scale: i64,
-    pub ability_script_list: Vec<AbilityScriptList>,
+    pub ability_script_list: Option<Vec<AbilityScriptList>>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct AbilityScriptList {
     pub script_name: String,
-    pub buff_data: BuffData,
+    pub buff_data: Option<BuffData>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct BuffData {
-    pub buff_keyword: String,
-    pub target: String,
-    pub buff_owner: String,
-    pub stack: i64,
-    pub turn: i64,
-    pub active_round: i64,
+    pub buff_keyword: Option<String>,
+    pub target: Option<String>,
+    pub buff_owner: Option<String>,
+    pub stack: Option<i64>,
+    pub turn: Option<i64>,
+    pub active_round: Option<i64>,
 }

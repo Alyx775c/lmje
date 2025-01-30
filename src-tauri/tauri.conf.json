@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "lmse",
+  "productName": "lmje",
   "version": "0.1.0",
-  "identifier": "com.lmse.app",
+  "identifier": "com.alyx.lmje",
   "build": {
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://localhost:1420",
@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "lmse",
+        "title": "lmje",
         "width": 800,
         "height": 600
       }
