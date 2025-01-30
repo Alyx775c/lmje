@@ -19,15 +19,18 @@ const items: MenuItem[] = [
 ];
 
 const Menubar: React.FC<{
+	currentFolder: string;
 	setCurFolder: (folder: string) => void;
-}> = ({ setCurFolder }) => {
+}> = ({ currentFolder, setCurFolder }) => {
 	async function dialog() {
 		setCurFolder(await invoke("file_dialog", {}));
 	}
 
 	const onClick: MenuProps["onClick"] = (e) => {
 		if (e.key == "open") {
-			dialog();
+			dialog().then(() => {
+				console.log(invoke("refresh_data", { folder: currentFolder }));
+			});
 		}
 	};
 
