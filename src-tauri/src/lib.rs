@@ -26,16 +26,15 @@ async fn file_dialog<R: Runtime>(app: tauri::AppHandle<R>) -> Result<FilePath, S
 #[tauri::command]
 async fn refresh_data<R: Runtime>(_app: tauri::AppHandle<R>) -> Result<String, String> {
     let fol = FH.lock().unwrap().get_folder();
-    #[warn(unused_mut)] // rust is skitzophrenic
     if let Some(fol) = fol {
         let skill_dir = fol.join("limbus_data\\skill");
         let skills = fs::read_dir(skill_dir.clone()).unwrap();
-        let mut skill0: String = String::from("");
+        let mut skill: String = String::from("");
         for sk in skills {
-            let skill = sk.unwrap();
-            let name = skill.file_name();
+            let skill_path = sk.unwrap();
+            let name = skill_path.file_name();
             if name == OsString::from("32.json") {
-                skill0 = fs::read_to_string(skill.path()).unwrap();
+                skill = fs::read_to_string(skill_path.path()).unwrap();
                 break;
             } else {
                 continue;
@@ -43,7 +42,7 @@ async fn refresh_data<R: Runtime>(_app: tauri::AppHandle<R>) -> Result<String, S
         }
 
         let skill_dat: HashMap<String, Vec<Skill>> =
-            serde_json::from_str(&skill0).unwrap();
+            serde_json::from_str(&skill).unwrap();
         let skill: &Skill;
 
         if let Some(list) = skill_dat.get("list") {
@@ -52,8 +51,6 @@ async fn refresh_data<R: Runtime>(_app: tauri::AppHandle<R>) -> Result<String, S
         } else {
             return Err("Skills map is empty".to_string());
         }
-
-        println!("{:#?}", skill);
 
         FH.lock().unwrap().set_skill_folder(skill_dir);
         Ok(format!("First skill: {:?}", &skill))
