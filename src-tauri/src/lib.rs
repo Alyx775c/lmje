@@ -4,7 +4,6 @@ mod skill_data;
 use file_handler::FileHandler;
 use skill_data::Skill;
 use std::collections::HashMap;
-use std::f32::consts::E;
 use std::{ffi::OsString, fs, path::PathBuf, sync::Mutex};
 use tauri::Runtime;
 use tauri_plugin_dialog::{DialogExt, FilePath};

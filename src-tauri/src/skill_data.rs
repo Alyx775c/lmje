@@ -12,9 +12,11 @@
 // }
 
 use serde::{Serialize, Deserialize};
+use ts_rs::TS;
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, TS)]
 #[serde(rename_all = "camelCase")]
+#[ts(export)]
 pub struct Skill {
     pub id: Option<i64>,
     pub skill_type: Option<String>,
@@ -24,8 +26,9 @@ pub struct Skill {
     pub skill_data: Vec<SkillData>,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, TS)]
 #[serde(rename_all = "camelCase")]
+#[ts(export)]
 pub struct SkillData {
     pub gaksung_level: i64,
     pub attribute_type: Option<AttributeType>,
@@ -45,7 +48,8 @@ pub struct SkillData {
     pub coin_list: Option<Vec<CoinList>>,
 }
 
-#[derive(Serialize, Clone, Deserialize, Debug)]
+#[derive(Serialize, Clone, Deserialize, Debug, TS)]
+#[ts(export)]
 pub enum AttributeType {
     NEUTRAL,
     CRIMSON,
@@ -58,30 +62,35 @@ pub enum AttributeType {
     WHITE,
     BLACK,
 }
-#[derive(Debug, Clone, Serialize, Deserialize)]
+
+#[derive(Debug, Clone, Serialize, Deserialize, TS)]
 #[serde(rename_all = "camelCase")]
+#[ts(export)]
 pub struct CoinList {
     pub operator_type: CoinTypes,
     pub scale: i64,
     pub ability_script_list: Option<Vec<AbilityScriptList>>,
 }
 
-#[derive(Serialize, Clone, Deserialize, Debug)]
+#[derive(Serialize, Clone, Deserialize, Debug, TS)]
+#[ts(export)]
 pub enum CoinTypes {
     ADD,
     MUL,
     SUB,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, TS)]
 #[serde(rename_all = "camelCase")]
+#[ts(export)]
 pub struct AbilityScriptList {
     pub script_name: String,
     pub buff_data: Option<BuffData>,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, TS)]
 #[serde(rename_all = "camelCase")]
+#[ts(export)]
 pub struct BuffData {
     pub buff_keyword: Option<String>,
     pub target: Option<String>,
