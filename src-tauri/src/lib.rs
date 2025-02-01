@@ -4,6 +4,7 @@ mod skill_data;
 use file_handler::FileHandler;
 use skill_data::Skill;
 use std::collections::HashMap;
+use std::f32::consts::E;
 use std::{ffi::OsString, fs, path::PathBuf, sync::Mutex};
 use tauri::Runtime;
 use tauri_plugin_dialog::{DialogExt, FilePath};
@@ -24,7 +25,9 @@ async fn file_dialog<R: Runtime>(app: tauri::AppHandle<R>) -> Result<FilePath, S
 }
 
 #[tauri::command]
-async fn refresh_data<R: Runtime>(_app: tauri::AppHandle<R>) -> Result<String, String> {
+async fn refresh_data<R: Runtime>(
+    _app: tauri::AppHandle<R>,
+) -> Result<std::option::Option<Vec<Skill>>, String> {
     let fol = FH.lock().unwrap().get_folder();
     if let Some(fol) = fol {
         let skill_dir = fol.join("limbus_data\\skill");
@@ -41,19 +44,25 @@ async fn refresh_data<R: Runtime>(_app: tauri::AppHandle<R>) -> Result<String, S
             }
         }
 
-        let skill_dat: HashMap<String, Vec<Skill>> =
-            serde_json::from_str(&skill).unwrap();
-        let skill: &Skill;
+        let skill_dat_res: Result<HashMap<String, Vec<Skill>>, serde_json::Error> =
+            serde_json::from_str(&skill);
 
-        if let Some(list) = skill_dat.get("list") {
-            let first_skill = &list[0];
-            skill = first_skill;
-        } else {
-            return Err("Skills map is empty".to_string());
+        if let Err(e) = skill_dat_res {
+            println!(
+                "Error, line: {}, col: {}, type: {:#?}, data: {:#?}",
+                e.line(),
+                e.column(),
+                e.classify(),
+                e.to_string()
+            );
+            return Err(e.to_string());
         }
 
+        // this can be safely unwrapped because we know the result is Ok
+        let skill_dat = skill_dat_res.unwrap();
+
         FH.lock().unwrap().set_skill_folder(skill_dir);
-        Ok(format!("First skill: {:?}", &skill))
+        Ok(skill_dat.get("list").cloned())
     } else {
         Err("No folder selected".to_string())
     }
