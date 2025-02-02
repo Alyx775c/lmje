@@ -2,4 +2,21 @@
 import type { AttributeType } from "./AttributeType";
 import type { CoinList } from "./CoinList";
 
-export type SkillData = { gaksungLevel: bigint, attributeType: AttributeType | null, atkType: string | null, defType: string | null, skillTargetType: string | null, targetNum: bigint | null, mpUsage: bigint | null, skillLevelCorrection: bigint | null, defaultValue: bigint | null, canTeamKill: boolean | null, canDuel: boolean | null, canChangeTarget: boolean | null, skillMotion: string | null, viewType: string | null, parryingCloseType: string | null, coinList: Array<CoinList> | null, };
+export type SkillData = {
+	gaksungLevel: bigint;
+	attributeType: AttributeType | null;
+	atkType: string | null;
+	defType: string | null;
+	skillTargetType: string | null;
+	targetNum: bigint | null;
+	mpUsage: bigint | null;
+	skillLevelCorrection: bigint | null;
+	defaultValue: bigint | null;
+	canTeamKill: boolean | null;
+	canDuel: boolean | null;
+	canChangeTarget: boolean | null;
+	skillMotion: string | null;
+	viewType: string | null;
+	parryingCloseType: string | null;
+	coinList: Array<CoinList> | null;
+};

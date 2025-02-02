@@ -18,7 +18,7 @@ use ts_rs::TS;
 #[serde(rename_all = "camelCase")]
 #[ts(export)]
 pub struct Skill {
-    pub id: Option<i64>,
+    pub id: i64,
     pub skill_type: Option<String>,
     pub skill_tier: Option<i64>,
     #[serde(rename = "requireIDList")]
