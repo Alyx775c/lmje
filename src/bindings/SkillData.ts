@@ -3,7 +3,7 @@ import type { AttributeType } from "./AttributeType";
 import type { CoinList } from "./CoinList";
 
 export type SkillData = {
-	gaksungLevel: bigint;
+	gaksungLevel: number;
 	attributeType: AttributeType | null;
 	atkType: string | null;
 	defType: string | null;

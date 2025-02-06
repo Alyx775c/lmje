@@ -1,3 +1,12 @@
+#gedit {
+    display: flex;
+}
+
 .subItems {
-    padding-left: 30px;
+	padding-left: 30px;
+}
+
+.skillSelect {
+	margin-top: 10px;
+	padding-left: 8px;
 }

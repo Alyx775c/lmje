@@ -2,7 +2,7 @@
 import type { SkillData } from "./SkillData";
 
 export type Skill = {
-	id: bigint;
+	id: number;
 	skillType: string | null;
 	skillTier: bigint | null;
 	requireIDList: Array<string | null> | null;

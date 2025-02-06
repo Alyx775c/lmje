@@ -3,6 +3,7 @@ import type { MenuProps } from "antd";
 import { Menu } from "antd";
 import { invoke } from "@tauri-apps/api/core";
 import { Skill } from "./bindings/Skill";
+import { ItemType } from "antd/es/menu/interface";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -23,7 +24,8 @@ const Menubar: React.FC<{
 	currentFolder: string;
 	setCurFolder: (folder: string) => void;
 	setCurSkillSet: (skillSet: Array<Skill>) => void;
-}> = ({ currentFolder, setCurFolder, setCurSkillSet }) => {
+	curItems: MenuItem[];
+}> = ({ currentFolder, setCurFolder, setCurSkillSet, curItems }) => {
 	async function dialog() {
 		setCurFolder(await invoke("file_dialog", {}));
 	}
@@ -38,6 +40,10 @@ const Menubar: React.FC<{
 			});
 		}
 	};
+
+	curItems.forEach(e => {
+		items.push(e as ItemType);
+	});
 
 	return <Menu onClick={onClick} mode="horizontal" items={items} />;
 };

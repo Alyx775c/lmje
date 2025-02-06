@@ -4,10 +4,12 @@ import Menubar from "./Menubar";
 import { useState } from "react";
 import GEdit from "./json/Geditor";
 import { Skill } from "./bindings/Skill";
+import { ItemType } from "antd/es/menu/interface";
 
 function App() {
 	const [curFolder, setCurFolder] = useState("");
 	const [curSkillSet, setCurSkillSet] = useState<Skill[]>([]);
+	const [additionalItems, setItems] = useState<ItemType[]>([]);
 
 	return (
 		<ConfigProvider
@@ -20,9 +22,13 @@ function App() {
 					currentFolder={curFolder}
 					setCurFolder={setCurFolder}
 					setCurSkillSet={setCurSkillSet}
+					curItems={additionalItems}
 				/>
-				<GEdit skillMap={curSkillSet} />
-				{curFolder}
+				<GEdit
+					skillMap={curSkillSet}
+					mItems={additionalItems}
+					setMItems={setItems}
+				/>
 			</main>
 		</ConfigProvider>
 	);
